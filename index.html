@@ -7,16 +7,16 @@
        margin: 20px 0 0 0;
      }
      .intLink {
-      cursor: pointer;
-      text-decoration: underline;
-      color: #0000ff;
-    }
-  </style>
-  <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-  <script>
+  cursor: pointer;
+  text-decoration: underline;
+  color: #0000ff;
+}
+   </style>
+   <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+   <script>
     $(document).ready(function(){
       $('body').on('keyup',function() {
-        var postText = $('#textareaid').val();
+        var postText = $('#content').val();
         postText = postText.replace(/\r\n/g, '\n');
         postText = postText.replace(/\r/g, '\n');
         var lines = postText.split('\n');
@@ -24,46 +24,43 @@
         var replacedText = lines.join("<br>");
         $('#preview').html(replacedText);
       });
-
-
-
     });
 
 
-    function insertAtCaret(areaId,text) {
-      var txtarea = document.getElementById(areaId);
-      var scrollPos = txtarea.scrollTop;
-      var strPos = 0;
-      var br = ((txtarea.selectionStart || txtarea.selectionStart == '0') ? 
+function insertAtCaret(areaId,text) {
+    var txtarea = document.getElementById(areaId);
+    var scrollPos = txtarea.scrollTop;
+    var strPos = 0;
+    var br = ((txtarea.selectionStart || txtarea.selectionStart == '0') ? 
         "ff" : (document.selection ? "ie" : false ) );
-      if (br == "ie") { 
+    if (br == "ie") { 
         txtarea.focus();
         var range = document.selection.createRange();
         range.moveStart ('character', -txtarea.value.length);
         strPos = range.text.length;
-      }
-      else if (br == "ff") strPos = txtarea.selectionStart;
+    }
+    else if (br == "ff") strPos = txtarea.selectionStart;
 
-      var front = (txtarea.value).substring(0,strPos);  
-      var back = (txtarea.value).substring(strPos,txtarea.value.length); 
-      txtarea.value=front+text+back;
-      strPos = strPos + text.length;
-      if (br == "ie") { 
+    var front = (txtarea.value).substring(0,strPos);  
+    var back = (txtarea.value).substring(strPos,txtarea.value.length); 
+    txtarea.value=front+text+back;
+    strPos = strPos + text.length;
+    if (br == "ie") { 
         txtarea.focus();
         var range = document.selection.createRange();
         range.moveStart ('character', -txtarea.value.length);
         range.moveStart ('character', strPos);
         range.moveEnd ('character', 0);
         range.select();
-      }
-      else if (br == "ff") {
+    }
+    else if (br == "ff") {
         txtarea.selectionStart = strPos;
         txtarea.selectionEnd = strPos;
         txtarea.focus();
-      }
-      txtarea.scrollTop = scrollPos;
     }
-
+    txtarea.scrollTop = scrollPos;
+}
+ 
 // Function to add <tag>To Selected text</tag> in textarea with id of idelm
 // Receives the tag name, and the id of textarea.
 // Returns the selected text, with tag
@@ -105,20 +102,14 @@ function addTagSel(tag, idelm) {
 }
 
 
-
-
-
-</script>
-
-</script>
+  </script>
 </head>
 <body>
-  <form>
+<form>
 
-    <textarea id="textareaid" rows="30" cols="100"></textarea>
-    <input type="button" value="BOLD" onclick="addTagSel('strong', 'textareaid');" />
-    <input type="button" value="BOLD" onclick="addTagSel('h4', 'textareaid');" />
-    <div id="preview"></div>
-  </form>
+<textarea id="textareaid" cols = ></textarea>
+<a href="#" onclick="insertAtCaret('textareaid','\nI gues you are a GOT\n');return false;">Click Here to Insert</a>
+<input type="button" value="BOLD" onclick="addTagSel('strong', 'textareaid');" />
+</form>
 </body>
 </html>
